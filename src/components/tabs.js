@@ -40,8 +40,17 @@ const tabsAppender = (selector) => {
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
 
+  let tabsBar = document.querySelector(selector);
 
-
+  axios
+  .get("https://lambda-times-api.herokuapp.com/topics")
+  .then((res) => {
+    let newTabs = Tabs(res.data.topics);
+    tabsBar.appendChild(newTabs);
+  })
+  .catch((err) => {
+    console.log(err);
+    });
 }
 
 export { Tabs, tabsAppender }
